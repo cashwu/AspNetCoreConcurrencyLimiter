@@ -26,6 +26,10 @@ namespace testNewCoreConcurrencyLimiter.Controllers
         [HttpGet]
         public IEnumerable<WeatherForecast> Get()
         {
+            _logger.LogInformation($"--- get {DateTime.Now:O} ---");
+            
+            Task.Delay(100).Wait(); // 100ms sync-over-async
+            
             var rng = new Random();
 
             return Enumerable.Range(1, 5).Select(index => new WeatherForecast
